@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { NewDrizzle } from '../../db/drizzle';
+import type { NewDrizzle } from '../../db/drizzle';
 
 export class UserRepository {
   private readonly db: NewDrizzle['db'];

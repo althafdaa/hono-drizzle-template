@@ -1,4 +1,4 @@
-import { UserRepository } from './repository';
+import type { UserRepository } from './repository';
 
 export class UserService {
   private readonly userRepo: UserRepository;
