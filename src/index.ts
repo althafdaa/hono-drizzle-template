@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { newDrizzle } from './db/drizzle';
@@ -5,7 +6,7 @@ import { UserHandler, UserRepository, UserService } from './modules/user';
 import { Router } from './router';
 
 const app = new Hono();
-const { db } = newDrizzle('postgres://local:local@localhost:5432/postgres');
+const { db } = newDrizzle(process.env.DB_URL!);
 
 const userRepo = new UserRepository(db);
 const userService = new UserService(userRepo);
