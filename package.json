@@ -13,15 +13,14 @@
     "drizzle-orm": "^0.32.1",
     "hono": "^4.5.3",
     "postgres": "^3.4.4",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "typescript": "^5.5.4",
+    "@types/node": "^20.11.17"
   },
   "devDependencies": {
     "@hono/eslint-config": "^0.0.6",
-    "@types/node": "^20.11.17",
     "eslint": "^8",
     "drizzle-kit": "^0.23.1",
-    "tsx": "^4.7.1",
-    "typescript": "^5.5.4",
-    "typescript-eslint": "^8.0.0"
+    "tsx": "^4.7.1"
   }
 }

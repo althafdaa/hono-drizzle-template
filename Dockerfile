@@ -7,7 +7,7 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml tsconfig.json src ./
 RUN corepack enable pnpm && \
-    pnpm install --frozen-lockfile
+    pnpm install --prod --frozen-lockfile
 
 RUN pnpm build
 
