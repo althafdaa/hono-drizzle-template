@@ -1,19 +1,13 @@
-name: Lint & Typechecking
+name: Intergration Tests
 
 on:
+  pull_request:
+    types:
+      - labeled
   push:
     branches:
-      - master
       - dev
-    paths-ignore:
-      - '.github/**'
-  pull_request:
-    branches:
       - master
-      - dev
-    paths-ignore:
-      - '.github/**'
-    types: [opened, synchronize, reopened, ready_for_review] # Don't run if draft
 
 # Cancel current running
 concurrency:
@@ -21,9 +15,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint:
-    name: Lint & Typechecking
-    if: github.event.pull_request.draft == false
+  tests:
+    if: ${{ github.event.label.name == 'run-test' || (github.event_name == 'push' && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/master')) }}
+    name: Intergration Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -41,6 +35,10 @@ jobs:
       - name: install deps
         run: pnpm install
       - name: run linter
-        run: pnpm run lint
-      - name: run typechecker
-        run: pnpm run typecheck
+        run: pnpm run test
+      - name: Remove label
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{always()}}
+        with:
+          labels: run-test
+          fail_on_error: false
