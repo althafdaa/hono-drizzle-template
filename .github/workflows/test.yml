@@ -36,3 +36,9 @@ jobs:
         run: pnpm install
       - name: run linter
         run: pnpm run test
+      - name: Remove label
+        uses: actions-ecosystem/action-remove-labels@v1
+        if: ${{always()}}
+        with:
+          labels: run-test
+          fail_on_error: false
