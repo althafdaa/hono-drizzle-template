@@ -5,7 +5,9 @@ import { UserRepository } from './repository';
 import { HTTPException } from 'hono/http-exception';
 import { ERROR_MSG, STATUS } from '../../constants/error';
 import { userSchema } from './dto';
-
+/**
+ * @description PATH: '/api/[version]/users/*
+ */
 const userHandler = new Hono();
 export const userRepository = new UserRepository(database.db);
 export const userService = new UserService(userRepository);
