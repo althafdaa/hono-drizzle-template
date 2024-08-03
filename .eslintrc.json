@@ -1,0 +1,11 @@
+{
+  "extends": ["@hono/eslint-config"],
+  "rules": {
+    "semi": "off",
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ]
+  }
+}

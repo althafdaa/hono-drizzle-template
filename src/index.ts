@@ -28,14 +28,11 @@ app.use(
   })
 );
 
-const hello: any = '123';
-
 const base = app.basePath('/api');
 const v1 = base.basePath('/v1');
 v1.route('/users', userHandler);
 
 const port = 3000;
-console.log(`Server is running on port ${port}`);
 
 app.onError((err, c) => {
   if (err instanceof HTTPException) {
