@@ -31,7 +31,6 @@ app.use(
 const base = app.basePath('/api');
 const v1 = base.basePath('/v1');
 v1.route('/users', userHandler);
-
 const port = 3000;
 
 app.onError((err, c) => {

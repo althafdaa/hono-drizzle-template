@@ -15,7 +15,7 @@ on:
       - '.github/**'
     types: [opened, synchronize, reopened, ready_for_review] # Don't run if draft
 
-    # Cancel current running
+# Cancel current running
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
   cancel-in-progress: true
@@ -24,7 +24,6 @@ jobs:
   lint:
     name: Lint & Typechecking
     if: github.event.pull_request.draft == false
-
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
