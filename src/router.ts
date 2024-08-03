@@ -11,6 +11,10 @@ export class Router {
   }
 
   setup() {
-    this.app.get('/', (c) => this.userHandler.findUserByID(c));
+    const base = this.app.basePath('/api');
+    const v1 = base.basePath('/v1');
+
+    const user = v1.basePath('/users');
+    user.get('/:id', (c) => this.userHandler.findUserByID(c));
   }
 }

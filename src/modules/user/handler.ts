@@ -11,17 +11,17 @@ export class UserHandler {
   async findUserByID(c: Context) {
     const id = Number(c.req.param('id'));
 
-    // if (isNaN(id)) {
-    //   return c.json(
-    //     {
-    //       error: 'INVALID_ID',
-    //       code: 400,
-    //     },
-    //     400
-    //   );
-    // }
+    if (isNaN(id)) {
+      return c.json(
+        {
+          error: 'INVALID_ID',
+          code: 400,
+        },
+        400
+      );
+    }
 
-    const user = await this.userService.findUserByID(1);
+    const user = await this.userService.findUserByID(id);
     if (!user) {
       return c.json(
         {
