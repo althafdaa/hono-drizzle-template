@@ -12,4 +12,6 @@ const newDrizzle = (dsn: string) => {
 
 type NewDrizzle = ReturnType<typeof newDrizzle>;
 
-export { newDrizzle, NewDrizzle };
+const database = newDrizzle(process.env.DB_URL!);
+
+export { newDrizzle, NewDrizzle, database };

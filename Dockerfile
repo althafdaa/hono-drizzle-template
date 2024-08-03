@@ -5,11 +5,11 @@ FROM base AS builder
 RUN apk add --no-cache gcompat
 WORKDIR /app
 
-COPY package*json tsconfig.json src ./
+COPY package.json pnpm-lock.yaml tsconfig.json src ./
+RUN corepack enable pnpm && \
+    pnpm install --frozen-lockfile
 
-RUN npm ci && \
-    npm run build && \
-    npm prune --production
+RUN pnpm build
 
 FROM base AS runner
 WORKDIR /app

@@ -1,43 +1,38 @@
-import { Context } from 'hono';
+import { Hono } from 'hono';
 import { UserService } from './service';
+import { database } from '../../db/drizzle';
+import { UserRepository } from './repository';
+import { HTTPException } from 'hono/http-exception';
+import { ERROR_MSG, STATUS } from '../../constants/error';
+import { userSchema } from './dto';
 
-export class UserHandler {
-  private readonly userService: UserService;
+const userHandler = new Hono();
+export const userRepository = new UserRepository(database.db);
+export const userService = new UserService(userRepository);
 
-  constructor(userService: UserService) {
-    this.userService = userService;
+userHandler.get('/:id', async (c) => {
+  const id = Number(c.req.param('id'));
+  if (isNaN(id)) {
+    throw new HTTPException(STATUS.BAD_REQUEST, {
+      message: 'INVALID_ID',
+    });
   }
 
-  async findUserByID(c: Context) {
-    const id = Number(c.req.param('id'));
-
-    if (isNaN(id)) {
-      return c.json(
-        {
-          error: 'INVALID_ID',
-          code: 400,
-        },
-        400
-      );
-    }
-
-    const user = await this.userService.findUserByID(id);
-    if (!user) {
-      return c.json(
-        {
-          error: 'USER_NOT_FOUND',
-          code: 404,
-        },
-        404
-      );
-    }
-
-    return c.json(
-      {
-        data: user,
-        code: 200,
-      },
-      200
-    );
+  const user = await userService.findUserByID(id);
+  if (!user) {
+    throw new HTTPException(STATUS.NOT_FOUND, {
+      message: ERROR_MSG.NOT_FOUND,
+    });
   }
-}
+
+  const ok = userSchema.safeParse(user);
+  if (ok.error) {
+    throw new HTTPException(STATUS.INTERNAL_SERVER_ERROR, {
+      message: ok.error.message,
+    });
+  }
+
+  return c.json({ code: STATUS.OK, data: ok.data }, STATUS.OK);
+});
+
+export { userHandler };
