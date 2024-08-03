@@ -12,9 +12,7 @@ const userHandler = new Hono();
 export const userRepository = new UserRepository(database.db);
 export const userService = new UserService(userRepository);
 
-const v1 = userHandler.basePath('/v1');
-
-v1.get('/:id', async (c) => {
+userHandler.get('/:id', async (c) => {
   const id = Number(c.req.param('id'));
   if (isNaN(id)) {
     throw new HTTPException(STATUS.BAD_REQUEST, {
