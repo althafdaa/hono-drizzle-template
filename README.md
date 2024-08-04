@@ -7,7 +7,7 @@ Personal template for Hono REST API. With bunch local depedencies setup with doc
 ### Dependencies
 
 - Postgres
-- Redis (soon)
+- Redis
 - AWS S3 (soon)
 
 ## Getting Started

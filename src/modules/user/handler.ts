@@ -5,11 +5,12 @@ import { UserRepository } from './repository';
 import { HTTPException } from 'hono/http-exception';
 import { ERROR_MSG, STATUS } from '../../constants/error';
 import { userSchema } from './dto';
+import { redis } from '@/db/redis';
 /**
  * @description PATH: '/api/[version]/users/*
  */
 const userHandler = new Hono();
-export const userRepository = new UserRepository(database.db);
+export const userRepository = new UserRepository(database.db, redis);
 export const userService = new UserService(userRepository);
 
 userHandler.get('/:id', async (c) => {
