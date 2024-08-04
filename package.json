@@ -6,7 +6,10 @@
     "build": "tsc",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
-    "test": "vitest"
+    "test": "vitest",
+    "migration:generate": "drizzle-kit generate",
+    "migration:push": "drizzle-kit push",
+    "migration:run": "pnpm tsx src/db/migrator.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.12.0",
