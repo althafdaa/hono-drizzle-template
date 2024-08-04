@@ -5,7 +5,7 @@ import { UserRepository } from './repository';
 import { HTTPException } from 'hono/http-exception';
 import { ERROR_MSG, STATUS } from '../../constants/error';
 import { userSchema } from './dto';
-import { redis } from '@/db/redis';
+import { redis } from '../../db/redis';
 /**
  * @description PATH: '/api/[version]/users/*
  */

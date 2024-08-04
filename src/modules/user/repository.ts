@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
 import type { NewDrizzle } from '../../db/drizzle';
-import type { NewRedis } from '@/db/redis';
+import { NewRedis } from '../../db/redis';
 
 export class UserRepository {
   private readonly db: NewDrizzle['db'];
